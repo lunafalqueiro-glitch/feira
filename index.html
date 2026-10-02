@@ -1,2 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Feira de Ciências</title>
 
-<script src="https://katrix.app/widget.js" data-bot-key="UhsjYjOpVmbmmmp11bbjXKOvVuxZCzuxsjzjcVuRaXviDwe85d7eaaMvzGy44Sd4" defer></script>
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script
+      id="katrix-widget-script"
+      src="https://katrix.app/widget.js"
+      data-bot-key="UhsjYjOpVmbmmmp11bbjXKOvVuxZCzuxsjzjcVuRaXviDwe85d7eaaMvzGy44Sd4"
+      defer
+    ></script>
+
+    <script>
+      (() => {
+        const MOBILE_WIDGET_CSS = `
+          @media (max-width: 600px) {
+            #katrix-widget-btn {
+              width: 76px !important;
+              height: 76px !important;
+              right: 18px !important;
+              bottom: max(20px, env(safe-area-inset-bottom)) !important;
+            }
+
+            #katrix-widget-btn svg {
+              width: 36px !important;
+              height: 36px !important;
+            }
+
+            #katrix-chat-window {
+              left: 12px !important;
+              right: 12px !important;
+              bottom: calc(96px + env(safe-area-inset-bottom)) !important;
+              width: auto !important;
+              height: min(70dvh, 560px) !important;
+              max-width: none !important;
+              max-height: calc(100dvh - 120px - env(safe-area-inset-bottom)) !important;
+              border-radius: 18px !important;
+            }
+          }
+        `;
+
+        function customizeKatrixWidget() {
+          const host = document.getElementById("katrix-widget-root");
+          const shadowRoot = host?.shadowRoot;
+
+          if (!shadowRoot) {
+            window.setTimeout(customizeKatrixWidget, 100);
+            return;
+          }
+
+          if (shadowRoot.getElementById("feira-mobile-widget-style")) return;
+
+          const style = document.createElement("style");
+          style.id = "feira-mobile-widget-style";
+          style.textContent = MOBILE_WIDGET_CSS;
+          shadowRoot.appendChild(style);
+        }
+
+        document
+          .getElementById("katrix-widget-script")
+          .addEventListener("load", customizeKatrixWidget);
+
+        window.addEventListener("load", customizeKatrixWidget);
+      })();
+    </script>
+  </body>
+</html>
